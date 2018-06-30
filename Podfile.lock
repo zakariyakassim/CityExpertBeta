@@ -1,0 +1,24 @@
+PODS:
+  - SnapKit (4.0.0)
+  - SwiftyJSON (4.0.0)
+  - UIColor_Hex_Swift (4.0.1)
+
+DEPENDENCIES:
+  - SnapKit (~> 4.0.0)
+  - SwiftyJSON
+  - UIColor_Hex_Swift (~> 4.0.1)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SnapKit
+    - SwiftyJSON
+    - UIColor_Hex_Swift
+
+SPEC CHECKSUMS:
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  UIColor_Hex_Swift: c5ff88470499383b8fd85302d59344bb24ba9436
+
+PODFILE CHECKSUM: 1a0e9034824a356917566424db2fd870ed42226d
+
+COCOAPODS: 1.5.0
