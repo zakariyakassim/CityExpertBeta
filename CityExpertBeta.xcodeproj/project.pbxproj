@@ -23,6 +23,7 @@
 		EFA92D722067D1D20055318C /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA92D712067D1D20055318C /* Cells.swift */; };
 		EFA92D742067D2310055318C /* DataHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA92D732067D2310055318C /* DataHandle.swift */; };
 		EFA92D762067D33C0055318C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = EFA92D752067D33C0055318C /* Podfile */; };
+		EFAD6F45216D1BC3004BA588 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAD6F44216D1BC3004BA588 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		EFA92D712067D1D20055318C /* Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		EFA92D732067D2310055318C /* DataHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandle.swift; sourceTree = "<group>"; };
 		EFA92D752067D33C0055318C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		EFAD6F44216D1BC3004BA588 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				EFA92D5A20668C6F0055318C /* ViewController.swift */,
 				EF54253820DFDF6A00D03812 /* TestView.swift */,
 				EF54253C20E4D4C800D03812 /* NearestStopsViewController.swift */,
+				EFAD6F44216D1BC3004BA588 /* File.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFA92D6120668C6F0055318C /* CityExpertBeta.xcdatamodeld in Sources */,
+				EFAD6F45216D1BC3004BA588 /* File.swift in Sources */,
 				EFA92D5B20668C6F0055318C /* ViewController.swift in Sources */,
 				EFA92D6E2067D1A40055318C /* NearbyStopsTableViewCell.swift in Sources */,
 				EF54253B20DFE72C00D03812 /* Helpers.swift in Sources */,
