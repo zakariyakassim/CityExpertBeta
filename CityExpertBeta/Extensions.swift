@@ -65,7 +65,7 @@ extension UIButton {
     convenience init(title : String, selector : Selector, button: @escaping (UIButton) -> Void) {
         
         self.init()
-        self.setTitle(title, for: UIControlState.normal)
+        self.setTitle(title, for: UIControl.State.normal)
         self.addTarget(self, action: selector, for: .touchUpInside)
         button(self)
     }

@@ -34,7 +34,7 @@ class NearestStopsViewController: UIViewController, UITableViewDelegate, UITable
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView(frame: .zero)
-        self.tableView.contentInset = UIEdgeInsetsMake(mapViewHeight, 0, 50, 0)
+        self.tableView.contentInset = UIEdgeInsets.init(top: mapViewHeight, left: 0, bottom: 50, right: 0)
         self.tableView.backgroundColor = UIColor.skin.red
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
@@ -96,8 +96,8 @@ class NearestStopsViewController: UIViewController, UITableViewDelegate, UITable
         self.btnBus.createButton { button in
             
             button.layer.cornerRadius = 10
-            button.imageEdgeInsets = UIEdgeInsetsMake(20,20,20,20)
-            button.setImage(Image.bus, for: UIControlState.normal)
+            button.imageEdgeInsets = UIEdgeInsets.init(top: 20,left: 20,bottom: 20,right: 20)
+            button.setImage(Image.bus, for: UIControl.State.normal)
             button.imageView?.contentMode = .scaleAspectFill
             button.imageView?.clipsToBounds = true
             button.backgroundColor = UIColor.white
@@ -112,8 +112,8 @@ class NearestStopsViewController: UIViewController, UITableViewDelegate, UITable
             
             
             button.layer.cornerRadius = 10
-            button.imageEdgeInsets = UIEdgeInsetsMake(20,20,20,20)
-            button.setImage(Image.favourites, for: UIControlState.normal)
+            button.imageEdgeInsets = UIEdgeInsets.init(top: 20,left: 20,bottom: 20,right: 20)
+            button.setImage(Image.favourites, for: UIControl.State.normal)
             button.imageView?.contentMode = .scaleAspectFill
             button.imageView?.clipsToBounds = true
             button.backgroundColor = UIColor.white
@@ -130,8 +130,8 @@ class NearestStopsViewController: UIViewController, UITableViewDelegate, UITable
             
             
             button.layer.cornerRadius = 10
-            button.imageEdgeInsets = UIEdgeInsetsMake(20,20,20,20)
-            button.setImage(Image.places, for: UIControlState.normal)
+            button.imageEdgeInsets = UIEdgeInsets.init(top: 20,left: 20,bottom: 20,right: 20)
+            button.setImage(Image.places, for: UIControl.State.normal)
             button.imageView?.contentMode = .scaleAspectFill
             button.imageView?.clipsToBounds = true
             button.backgroundColor = UIColor.white
@@ -149,8 +149,8 @@ class NearestStopsViewController: UIViewController, UITableViewDelegate, UITable
             
             
             button.layer.cornerRadius = 10
-            button.imageEdgeInsets = UIEdgeInsetsMake(20,20,20,20)
-            button.setImage(Image.notify_me, for: UIControlState.normal)
+            button.imageEdgeInsets = UIEdgeInsets.init(top: 20,left: 20,bottom: 20,right: 20)
+            button.setImage(Image.notify_me, for: UIControl.State.normal)
             button.imageView?.contentMode = .scaleAspectFill
             button.imageView?.clipsToBounds = true
             button.backgroundColor = UIColor.white
