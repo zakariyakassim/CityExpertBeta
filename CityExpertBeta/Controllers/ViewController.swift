@@ -10,70 +10,109 @@ import UIKit
 import MapKit
 import SnapKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UIScrollViewDelegate{
     
     let mapViewHeight:CGFloat = screenHeight/2.5
     
     let mapView = MKMapView()
-    
     let btnBus = UIButton(type: .system)
     let btnPlaces = UIButton(type: .system)
     let btnFavourite = UIButton(type: .system)
     let btnNotify = UIButton(type: .system)
-    
     let topBanner = UIView()
     
     @IBOutlet var tableView: UITableView!
     
-        let items = ["9:00 - 9:30","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00"]
+    let items = ["9:00 - 9:30","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00","9:30 - 10:00"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.tableFooterView = UIView(frame: .zero)
-        self.tableView.contentInset = UIEdgeInsets.init(top: mapViewHeight, left: 0, bottom: 50, right: 0)
-        self.tableView.backgroundColor = UIColor.skin.red
-        self.tableView.separatorStyle = .none
-        self.tableView.allowsSelection = false
 
-        self.tableView.snp.makeConstraints { make in
-            make.width.height.equalTo(self.view)
-           make.center.equalTo(self.view)
-        }
-        
-
-        mapView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: mapViewHeight)
+      //  mapView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: mapViewHeight)
         
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
-        
-
         mapView.center = view.center
         
         view.addSubview(mapView)
         
         
+        let scrollView = UIScrollView()
+       //scrollView.layer.zPosition = 1;
+      // scrollView.layer.backgroundColor = UIColor.white.cgColor
         
-        self.btnBus.createButton { button in
-            
-            button.layer.cornerRadius = 10
-            button.imageEdgeInsets = UIEdgeInsets.init(top: 20,left: 20,bottom: 20,right: 20)
-            button.setImage(Image.bus, for: UIControl.State.normal)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.imageView?.clipsToBounds = true
-            button.backgroundColor = UIColor.white
-            button.tintColor = UIColor.black
-            button.addTarget(self, action: #selector(self.buttonClicked(_:)), for: .touchUpInside)
-            
-           
-            
+        scrollView.delegate = self
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view)
+        }
+        
+        let contentView = UIView()
+        contentView.layer.cornerRadius = 0
+        contentView.layer.masksToBounds = true
+       // scrollView.setContentOffset(CGPoint(x: 200, y: 200), animated: true)
+        scrollView.contentInset = UIEdgeInsets(top: mapViewHeight, left: 0.0, bottom: 0.0, right: 0.0)
+        contentView.backgroundColor = UIColor.skin.red
+
+      //  contentView.addBorder(toSide: .Top, withColor: UIColor.black.cgColor, andThickness: 10)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = UIColor("#000000").cgColor
+        shapeLayer.lineWidth = 1
+        let path = CGMutablePath()
+        path.addLines(between: [CGPoint(x: 0, y: 50),CGPoint(x: self.view.frame.size.width, y: 50)])
+        shapeLayer.path = path
+        
+        contentView.layer.addSublayer(shapeLayer)
+        
+        
+        scrollView.addSubview(contentView)
+        contentView.snp.makeConstraints { (make) in
+            make.top.bottom.equalTo(scrollView)
+            make.left.right.equalTo(view) // => IMPORTANT: this makes the width of the contentview static (= size of the screen), while the contentview will stretch vertically
+        }
+        let layer = CAShapeLayer()
+        let linePath = UIBezierPath()
+        linePath.move(to: CGPoint(x: 0, y: 10))
+        linePath.addLine(to: CGPoint(x: self.view.frame.size.width, y: 10))
+        linePath.lineWidth = 10
+       
+        layer.path = linePath.cgPath
+        
+       // layer.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 160), cornerRadius: 50).cgPath
+       // layer.fillColor = UIColor.red.cgColor
+        contentView.layer.addSublayer(layer)
+        
+        
+        
+        let label1 = UILabel()
+        label1.isHidden = true
+        contentView.addSubview(label1)
+        label1.numberOfLines = 0
+        label1.text = "sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds"
+        
+        label1.snp.makeConstraints { (make) in
+            make.left.right.equalTo(contentView).inset(20) // left/right padding 20pt
+            make.top.equalTo(contentView).offset(20) // attached to the top of the contentview with padding 20pt
+        }
+        
+        let label2 = UILabel()
+         label2.isHidden = true
+        contentView.addSubview(label2)
+        label2.numberOfLines = 0
+        label2.text = "sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds"
+        
+        label2.snp.makeConstraints { (make) in
+            make.left.right.equalTo(contentView).inset(20) // left/right padding 20pt
+            make.top.equalTo(label1.snp.bottom).offset(20) // below label1 with margin 20pt
+            make.bottom.equalTo(contentView).offset(-20) // attached to the bottom of the contentview with padding 20pt
         }
         
         
-   
+        
+        
+
     }
     
     
@@ -88,15 +127,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return screenHeight/1.7
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  /*  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
    // if (self.isViewLoaded && (self.view.window != nil)) {
@@ -124,25 +155,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.addSubview(self.btnBus);
     
         
-        self.btnFavourite.createButton { button in
-            
-            
-            button.layer.cornerRadius = 10
-            button.imageEdgeInsets = UIEdgeInsets.init(top: 20,left: 20,bottom: 20,right: 20)
-            button.setImage(Image.favourites, for: UIControl.State.normal)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.imageView?.clipsToBounds = true
-            button.backgroundColor = UIColor.white
-            button.tintColor = UIColor.black
-
-            cell.addSubview(button)
-            
-            
-            
-            
-        }
+   
         
-        self.btnPlaces.createButton { button in
+       /* self.btnPlaces.createButton { button in
             
             
             button.layer.cornerRadius = 10
@@ -161,24 +176,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
         
-        self.btnNotify.createButton { button in
-            
-            
-            button.layer.cornerRadius = 10
-            button.imageEdgeInsets = UIEdgeInsets.init(top: 20,left: 20,bottom: 20,right: 20)
-            button.setImage(Image.notify_me, for: UIControl.State.normal)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.imageView?.clipsToBounds = true
-            button.backgroundColor = UIColor.white
-            button.tintColor = UIColor.black
-            
-            
-            cell.addSubview(button)
-            
-            
-            
-            
-        }
         
         
         topBanner.snp.makeConstraints { make in
@@ -235,7 +232,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             make.height.equalTo(buttonsContainer).multipliedBy(multipler) // make height equal to 50% of the superview
             make.bottom.equalTo(buttonsContainer)  // constrain the black view to the bottom left
             make.left.equalTo(buttonsContainer)
-        }
+        } */
         
         
        /* self.btnBus.snp.makeConstraints { make in
@@ -299,13 +296,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-    }
+    } */
     
 
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let y = mapViewHeight - (scrollView.contentOffset.y + mapViewHeight)
-        // print("y = "+String(describing: y))
+         print("y = "+String(describing: y))
         
         // let height = min(max(y, 60), 400)
         let height = max(y, 80)
@@ -313,7 +310,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //  let height = max(y, 0)
         
         // print("height = "+String(describing: height))
-        mapView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: height)
+        mapView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: height+20)
         
         //  profileImageY = profileImageY+y
         
